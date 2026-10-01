@@ -20,13 +20,19 @@ rendering. For large TikZ or PGFPlots environments, conditionally omit the
 entire environment in draft mode rather than loading those packages there.
 
 Toggle `\drafttrue` and `\draftfalse` in `main.tex` to compare the lightweight
-draft stubs with the real biblatex, cleveref, and TikZ packages. Build each mode
-with a separate job name so their auxiliary files do not conflict:
+draft stubs with the real biblatex, cleveref, and TikZ packages. The Makefile
+keeps that switch as the source of truth and precompiles the selected preamble
+before building the document.
 
-- Draft: `latexmk -pdf -jobname=main-draft main.tex`
-- Final: `latexmk -pdf -jobname=main-final main.tex` (with `\draftfalse`)
+GNU Make and the MiKTeX commands `etex`, `pdflatex`, `latexmk`, and `biber` must
+be available on `PATH`. From the project directory, use:
 
-The final build also runs Biber. For cold-build timings, clear that mode's
-outputs first with `latexmk -C -jobname=main-draft` or
-`latexmk -C -jobname=main-final`, then run its build command above. This keeps
-the two modes' auxiliary files isolated.
+- `make` — remove `main.aux`, precompile the selected preamble if needed, and build `main.pdf`
+- `make preamble` — remove `main.aux`, then check or rebuild `preamble.fmt`
+- `make remove-aux` — remove `main.aux` before a build
+- `make clean` — remove auxiliary files while keeping the PDF and format
+- `make distclean` — remove all generated build files
+
+When the final mode is selected, `latexmk` detects the `biblatex` control file
+and runs Biber automatically. Make does not rewrite the mode switch, so change
+`main.tex` explicitly before building the other mode.

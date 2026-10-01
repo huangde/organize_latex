@@ -22,3 +22,4 @@
 *.fmt
 *.pdf
 *.xdv
+.latex-mode-*
