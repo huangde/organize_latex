@@ -34,7 +34,7 @@ rm -f $(1)
 endef
 endif
 
-.PHONY: all build preamble clean distclean help FORCE
+.PHONY: all build preamble clean distclean help
 
 all: preamble build
 
@@ -49,10 +49,8 @@ $(MODE_MARKER):
 $(FORMAT): $(MODE_MARKER) $(PREAMBLE_SOURCES)
 	$(ETEX) -initialize -interaction=nonstopmode -halt-on-error -jobname=preamble "&pdflatex" mylatexformat.ltx $(MAIN)
 
-$(PDF): FORCE $(MODE_MARKER) $(FORMAT) $(DOCUMENT_SOURCES)
+$(PDF): $(MODE_MARKER) $(FORMAT) $(DOCUMENT_SOURCES)
 	$(LATEXMK) -pdf -interaction=nonstopmode -file-line-error -synctex=1 $(MAIN)
-
-FORCE:
 
 clean:
 	-$(LATEXMK) -c $(MAIN)
