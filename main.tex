@@ -1,0 +1,112 @@
+%&preamble
+\documentclass[11pt]{article}
+
+\newif\ifdraft
+\draftfalse % Change to \draftfalse for the final version.
+
+\ifdraft
+	\input{preamble/draft/packages}
+	\input{preamble/draft/layout}
+	\input{preamble/draft/commands}
+	\input{preamble/draft/metadata}
+\else
+	\input{preamble/final/packages}
+	\input{preamble/final/layout}
+	\input{preamble/final/commands}
+	\input{preamble/final/metadata}
+\fi
+
+\addbibresource{references.bib}
+\csname endofdump\endcsname % <--- Everything ABOVE this line is precompiled into a .fmt file
+
+
+
+\begin{document}
+\maketitle
+
+\section{Why modularize?}\label{sec:why-modularize}
+Keeping the document setup in small files makes it easier to find and reuse
+settings. The main file stays focused on the document's structure and content.
+
+\section{A small example}
+Here is a custom command defined in the selected mode's \texttt{commands.tex}:
+\important{This text is highlighted using a reusable command.}
+
+Packages loaded in the selected mode's \texttt{packages.tex} also let us typeset equations:
+\begin{equation}
+	e^{i\pi} + 1 = 0.
+\end{equation}
+
+\section{Citation and cross-reference test}\label{sec:reference-test}
+\textcite{knuth1984} introduced a foundational work on \TeX. A parenthetical
+citation with a page reference looks like this: \parencite[see][chap.~5]{knuth1984}.
+The sample \href{https://www.latex-project.org/}{LaTeX Project site} also
+provides documentation. A local link jumps to the \hyperref[tab:sample-data]{sample
+table}, and \autoref{fig:workflow} exercises automatic figure references.
+
+The data are summarized in \Cref{tab:sample-data}, and the process is shown
+in \cref{fig:workflow}. The table and figure can also be referenced together
+with \cref{tab:sample-data,fig:workflow}. This sample spans
+\crefrange{sec:why-modularize}{sec:reference-test}.
+
+\section{Compile-time benchmark}
+These are clean-build wall times in seconds, measured with separate job names;
+the final build includes Biber and TikZ rendering. In these runs, final mode's
+median was about 3.39 times the draft median.
+
+\begin{table}[htbp]
+\centering
+\caption{Three clean-build timings per mode, in seconds.}
+\label{tab:compile-benchmark}
+\begin{tabular}{lrrrr}
+\hline
+Mode & Run 1 & Run 2 & Run 3 & Median \\
+\hline
+Draft & 16.37 & 10.70 & 13.04 & 13.04 \\
+Final & 44.14 & 38.68 & 57.75 & 44.14 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Sample measurements used for the compile test.}
+\label{tab:sample-data}
+\begin{tabular}{lrr}
+\hline
+Mode & Citations & References \\
+\hline
+Draft & 2 & 2 \\
+Final & 2 & 2 \\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\ifdraft
+\fbox{\parbox[c][25mm][c]{0.65\linewidth}{\centering TikZ rendering skipped in draft}}
+\else
+\begin{tikzpicture}
+\node[draw] (source) at (0,0) {Source};
+\node[draw] (build) at (3,0) {Build};
+\node[draw] (output) at (6,0) {PDF};
+\draw[->] (source) -- (build);
+\draw[->] (build) -- (output);
+\end{tikzpicture}
+\fi
+\caption{A simple workflow diagram for the figure-reference test.}
+\label{fig:workflow}
+\end{figure}
+
+Each of \texttt{preamble/draft/} and \texttt{preamble/final/} contains:
+\begin{itemize}
+	\item \texttt{packages.tex}: package imports
+	\item \texttt{layout.tex}: page and paragraph layout
+	\item \texttt{commands.tex}: custom commands and environments
+	\item \texttt{metadata.tex}: title, author, and date
+\end{itemize}
+
+\printbibliography
+
+\end{document}

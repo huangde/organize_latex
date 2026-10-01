@@ -1,0 +1,61 @@
+% Reusable commands and environments for the draft build.
+\newcommand{\important}[1]{%
+	\par\noindent\textcolor{blue!70!black}{\textbf{#1}}\par
+}
+
+\newcommand{\draftplaceholder}[1]{\textcolor{gray}{[#1]}}
+
+% Biblatex-compatible placeholders; the citation keys and note options are consumed.
+\RenewDocumentCommand{\cite}{s o o m}{\draftplaceholder{cite}}
+\RenewDocumentCommand{\nocite}{m}{}
+\NewDocumentCommand{\parencite}{s o o m}{\draftplaceholder{cite}}
+\NewDocumentCommand{\textcite}{s o o m}{\draftplaceholder{cite}}
+\NewDocumentCommand{\autocite}{s o o m}{\draftplaceholder{cite}}
+\NewDocumentCommand{\footcite}{s o o m}{\footnote{\draftplaceholder{cite}}}
+\NewDocumentCommand{\smartcite}{s o o m}{\draftplaceholder{cite}}
+\NewDocumentCommand{\supercite}{s o o m}{\draftplaceholder{cite}}
+\NewDocumentCommand{\citeauthor}{s o o m}{\draftplaceholder{author}}
+\NewDocumentCommand{\citetitle}{s o o m}{\draftplaceholder{title}}
+\NewDocumentCommand{\citeyear}{s o o m}{\draftplaceholder{year}}
+\NewDocumentCommand{\citeyearpar}{s o o m}{\draftplaceholder{year}}
+\NewDocumentCommand{\fullcite}{s o o m}{\draftplaceholder{cite}}
+\NewDocumentCommand{\citet}{s o o m}{\draftplaceholder{cite}}
+\NewDocumentCommand{\citep}{s o o m}{\draftplaceholder{cite}}
+\NewDocumentCommand{\addbibresource}{o m}{}
+\NewDocumentCommand{\printbibliography}{s o}{\par\draftplaceholder{bibliography omitted in draft}\par}
+\RenewDocumentCommand{\bibliography}{m}{}
+\RenewDocumentCommand{\bibliographystyle}{m}{}
+
+% Cleveref-compatible placeholders; labels and formatting options are consumed.
+\NewDocumentCommand{\cref}{s o m}{\draftplaceholder{ref}}
+\NewDocumentCommand{\Cref}{s o m}{\draftplaceholder{ref}}
+\NewDocumentCommand{\cpageref}{s o m}{\draftplaceholder{page ref}}
+\NewDocumentCommand{\Cpageref}{s o m}{\draftplaceholder{page ref}}
+\NewDocumentCommand{\namecref}{s o m}{\draftplaceholder{ref name}}
+\NewDocumentCommand{\nameCref}{s o m}{\draftplaceholder{ref name}}
+\NewDocumentCommand{\labelcref}{s o m}{\draftplaceholder{ref}}
+\NewDocumentCommand{\crefrange}{s o m m}{\draftplaceholder{ref range}}
+\NewDocumentCommand{\Crefrange}{s o m m}{\draftplaceholder{ref range}}
+\NewDocumentCommand{\cpagerefrange}{s o m m}{\draftplaceholder{page ref range}}
+\NewDocumentCommand{\Cpagerefrange}{s o m m}{\draftplaceholder{page ref range}}
+\NewDocumentCommand{\crefname}{m m m}{}
+\NewDocumentCommand{\Crefname}{m m m}{}
+\NewDocumentCommand{\crefalias}{m m}{}
+
+% Hyperref-compatible placeholders. Links retain their visible text.
+\NewDocumentCommand{\href}{m m}{#2}
+\NewDocumentCommand{\hyperref}{o m}{#2}
+\NewDocumentCommand{\hyperlink}{m m}{#2}
+\NewDocumentCommand{\hypertarget}{m m}{#2}
+\NewDocumentCommand{\url}{m}{\texttt{#1}}
+\NewDocumentCommand{\nolinkurl}{m}{\texttt{#1}}
+\NewDocumentCommand{\autoref}{m}{\draftplaceholder{ref}}
+\NewDocumentCommand{\nameref}{m}{\draftplaceholder{ref name}}
+\NewDocumentCommand{\hypersetup}{m}{}
+\NewDocumentCommand{\urlstyle}{m}{}
+
+% Skip external code formatting tools in draft builds.
+\NewDocumentCommand{\inputminted}{o m m}{\draftplaceholder{code listing omitted}}
+\NewDocumentCommand{\mintinline}{s o m v}{\texttt{#4}}
+\NewDocumentCommand{\lstinputlisting}{o m}{\draftplaceholder{code listing omitted}}
+\NewDocumentCommand{\lstinline}{s o v}{\texttt{#3}}
