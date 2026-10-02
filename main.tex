@@ -1,20 +1,10 @@
 %&preamble
 \documentclass[11pt]{article}
 
-\newif\ifdraft
-\draftfalse % Change to \draftfalse for the final version.
-
-\ifdraft
-	\input{preamble/draft/packages}
-	\input{preamble/draft/layout}
-	\input{preamble/draft/commands}
-	\input{preamble/draft/metadata}
-\else
-	\input{preamble/final/packages}
-	\input{preamble/final/layout}
-	\input{preamble/final/commands}
-	\input{preamble/final/metadata}
-\fi
+\input{preamble/packages}
+\input{preamble/layout}
+\input{preamble/commands}
+\input{preamble/metadata}
 
 \addbibresource{references.bib}
 \csname endofdump\endcsname % <--- Everything ABOVE this line is precompiled into a .fmt file
@@ -83,9 +73,6 @@ Final & 2 & 2 \\
 
 \begin{figure}[htbp]
 \centering
-\ifdraft
-\fbox{\parbox[c][25mm][c]{0.65\linewidth}{\centering TikZ rendering skipped in draft}}
-\else
 \begin{tikzpicture}
 \node[draw] (source) at (0,0) {Source};
 \node[draw] (build) at (3,0) {Build};
@@ -93,7 +80,6 @@ Final & 2 & 2 \\
 \draw[->] (source) -- (build);
 \draw[->] (build) -- (output);
 \end{tikzpicture}
-\fi
 \caption{A simple workflow diagram for the figure-reference test.}
 \label{fig:workflow}
 \end{figure}
@@ -106,6 +92,19 @@ Each of \texttt{preamble/draft/} and \texttt{preamble/final/} contains:
 	\item \texttt{metadata.tex}: title, author, and date
 \end{itemize}
 
+\begin{equation}
+    \label{eq:ns}
+    \nabla \cdot \mathbf{v} = 0
+\end{equation}
+
+\begin{equation}
+    \label{eq:test}
+    \begin{aligned}
+    \frac{\partial{f}}{\partial{x}}+1=0 \\
+    f(0) = 0
+    \end{aligned}
+\end{equation}
+The rest of the text
 \printbibliography
 
 \end{document}
