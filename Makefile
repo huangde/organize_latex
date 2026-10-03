@@ -47,7 +47,7 @@ $(MODE_MARKER):
 	@echo $(MODE) > $@
 
 $(FORMAT): $(MODE_MARKER) $(PREAMBLE_SOURCES)
-	$(ETEX) -initialize -interaction=nonstopmode -halt-on-error -jobname=preamble "&pdflatex" mylatexformat.ltx $(MAIN)
+	$(ETEX) -ini -interaction=nonstopmode -halt-on-error -jobname=preamble "&pdflatex" mylatexformat.ltx $(MAIN)
 
 $(PDF): $(MODE_MARKER) $(FORMAT) $(DOCUMENT_SOURCES)
 	$(LATEXMK) -pdf -interaction=nonstopmode -file-line-error -synctex=1 $(MAIN)
